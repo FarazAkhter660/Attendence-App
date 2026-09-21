@@ -1,0 +1,13 @@
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const {withNativeWind} = require('nativewind/metro');
+
+const defaultConfig = getDefaultConfig(__dirname);
+const {assetExts} = defaultConfig.resolver;
+
+const config = mergeConfig(defaultConfig, {
+  resolver: {
+    assetExts: [...assetExts.filter(ext => ext !== 'tflite'), 'tflite'],
+  },
+});
+
+module.exports = withNativeWind(config, {input: './global.css'});
